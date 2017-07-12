@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="11.1.0.ga-2017-05-04">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Alter Format) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" id="Alter Format">
+		<properties>
+			<addedColumns>
+				<addedColumn name="std_currency_code" type="STRING"/>
+				<addedColumn name="std_currency_number" type="STRING"/>
+				<addedColumn name="std_currency_name" type="STRING"/>
+				<addedColumn name="exp_currency_code" type="STRING"/>
+				<addedColumn name="exp_currency_name" type="STRING"/>
+				<addedColumn name="exp_currency_number" type="STRING"/>
+				<addedColumn name="sco_currency_number" type="INTEGER"/>
+				<addedColumn name="sco_currency_name" type="INTEGER"/>
+				<addedColumn name="sco_currency_code" type="INTEGER"/>
+			</addedColumns>
+			<removedColumns/>
+		</properties>
+		<visual-constraints layout="vertical" bounds="360,120,48,48"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Alter Format"/>
+		<target endpoint="in" step="Currency Cleanser"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Currency Cleanser) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" id="Currency Cleanser">
+		<properties>
+			<assignments>
+				<assignment column="std_currency_code">
+					<expression>case(
+currency_code=&#39;CA&#39;,&#39;CAD&#39;,
+currency_code=&#39;US&#39;,&#39;USD&#39;,
+currency_code
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+				<assignment expression="currency_number" column="std_currency_number">
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+				<assignment column="std_currency_name">
+					<expression>case(
+currency_name=&#39;EU&#39;,&#39;Euro&#39;,
+currency_name=&#39;US dollar&#39;,&#39;United States dollar&#39;,
+currency_name
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+				<assignment column="exp_currency_code">
+					<expression>case(
+currency_code=&#39;CA&#39;,&#39;CAD_CODE_FIXED&#39;,
+currency_code=&#39;US&#39;,&#39;USD_CODE_FIXED&#39;,
+
+&#39;&#39;
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+				<assignment column="exp_currency_name">
+					<expression>case(
+currency_name=&#39;EU&#39;,&#39;EURO_NAME_STD&#39;,
+currency_name=&#39;US dollar&#39;,&#39;USD_NAME_STD&#39;,
+&#39;&#39;
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+				<assignment expression="&#39;&#39;" column="exp_currency_number">
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+				<assignment expression="0" column="sco_currency_number">
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+				<assignment column="sco_currency_name">
+					<expression>case(
+currency_name=&#39;EU&#39;,100,
+currency_name=&#39;US dollar&#39;,100,
+0
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+				<assignment column="sco_currency_code">
+					<expression>case(
+currency_code=&#39;CA&#39;,100,
+currency_code=&#39;US&#39;,100,
+0
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints layout="vertical" bounds="360,192,-1,-1"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Currency Cleanser"/>
+		<target endpoint="in" step="out"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (in) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" id="in">
+		<properties>
+			<columns>
+				<columnDef name="currency_code" type="STRING"/>
+				<columnDef name="currency_number" type="STRING"/>
+				<columnDef name="currency_name" type="STRING"/>
+			</columns>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints layout="vertical" bounds="360,24,48,48"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="in"/>
+		<target endpoint="in" step="Alter Format"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (out) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" id="out">
+		<properties>
+			<requiredColumns/>
+		</properties>
+		<visual-constraints layout="vertical" bounds="360,288,-1,-1"/>
+	</step>
+
+</purity-config>

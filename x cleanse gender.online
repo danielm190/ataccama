@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ServiceConfig version="11.1.0.ga-2017-05-04">
+  <services>
+    <serviceBean parallelismLevel="0" minPoolSize="1" configFile="x cleanse gender.comp" name="x_cleanse_gender" maxPoolSize="5">
+      <additionalActions/>
+      <method location="/x_cleanse_gender" soapAction="x_cleanse_gender" class="com.ataccama.dqc.online.cfg.SoapOverHttpMethod" soapVersion="SOAP11">
+        <inputFormat namespace="http://www.example.com/ws" schemaValidation="false">
+          <rootSection>
+            <columns/>
+            <sections>
+              <xmlInputSection name="in" stepId="in" strategy="SINGLE_REQUIRED">
+                <columns>
+                  <xmlColumn name="src_gender" strategy="NILLABLE_ELEM" type="STRING"/>
+                  <xmlColumn name="out_first_name" strategy="NILLABLE_ELEM" type="STRING"/>
+                </columns>
+                <references/>
+                <sections/>
+              </xmlInputSection>
+            </sections>
+          </rootSection>
+        </inputFormat>
+        <outputFormat namespace="http://www.example.com/ws">
+          <rootSection>
+            <columns/>
+            <sections>
+              <xmlOutputSection name="out" stepId="out" strategy="SINGLE_REQUIRED">
+                <columns>
+                  <xmlOutputColumn nullHandling="ERROR" name="src_gender" strategy="NILLABLE_ELEM" type="STRING"/>
+                  <xmlOutputColumn nullHandling="ERROR" name="std_gender" strategy="NILLABLE_ELEM" type="STRING"/>
+                  <xmlOutputColumn nullHandling="ERROR" name="out_gender" strategy="NILLABLE_ELEM" type="STRING"/>
+                  <xmlOutputColumn nullHandling="ERROR" name="exp_gender" strategy="NILLABLE_ELEM" type="STRING"/>
+                  <xmlOutputColumn nullHandling="ERROR" name="sco_gender" strategy="NILLABLE_ELEM" type="INTEGER"/>
+                </columns>
+                <sections/>
+              </xmlOutputSection>
+            </sections>
+          </rootSection>
+        </outputFormat>
+      </method>
+    </serviceBean>
+  </services>
+</ServiceConfig>
