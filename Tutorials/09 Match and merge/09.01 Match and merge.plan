@@ -1,0 +1,1040 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="11.1.0.ga-2017-05-04">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Add columns) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" id="Add columns">
+		<properties>
+			<addedColumns>
+				<addedColumn name="std_first_name" type="STRING"/>
+				<addedColumn name="std_middle_name" type="STRING"/>
+				<addedColumn name="std_last_name" type="STRING"/>
+				<addedColumn name="std_gender" type="STRING"/>
+				<addedColumn name="std_birth_date" type="DAY"/>
+				<addedColumn name="std_sin" type="STRING"/>
+				<addedColumn name="std_card" type="STRING"/>
+				<addedColumn name="std_email" type="STRING"/>
+				<addedColumn name="out_first_name" type="STRING"/>
+				<addedColumn name="out_middle_name" type="STRING"/>
+				<addedColumn name="out_last_name" type="STRING"/>
+				<addedColumn name="out_gender" type="STRING"/>
+				<addedColumn name="out_birth_date" type="STRING"/>
+				<addedColumn name="out_sin" type="STRING"/>
+				<addedColumn name="out_card" type="STRING"/>
+				<addedColumn name="out_email" type="STRING"/>
+				<addedColumn name="std_title" type="STRING"/>
+				<addedColumn name="pat_full_name" type="STRING"/>
+				<addedColumn name="pat_birth_date_regex" type="STRING"/>
+				<addedColumn name="matching_first_name" type="STRING"/>
+				<addedColumn name="matching_last_name" type="STRING"/>
+				<addedColumn name="matching_gender" type="STRING"/>
+				<addedColumn name="matching_birth_date" type="STRING"/>
+				<addedColumn name="matching_sin" type="STRING"/>
+				<addedColumn name="matching_card" type="STRING"/>
+				<addedColumn name="matching_email" type="STRING"/>
+				<addedColumn name="uni_can_id" type="STRING"/>
+				<addedColumn name="uni_cli_id" type="STRING"/>
+				<addedColumn name="uni_role" type="STRING"/>
+				<addedColumn name="uni_rule_name" type="STRING"/>
+				<addedColumn name="exp_name" type="STRING"/>
+				<addedColumn name="exp_gender" type="STRING"/>
+				<addedColumn name="exp_birth_date" type="STRING"/>
+				<addedColumn name="exp_sin" type="STRING"/>
+				<addedColumn name="exp_card" type="STRING"/>
+				<addedColumn name="exp_email" type="STRING"/>
+				<addedColumn name="sco_name" type="INTEGER"/>
+				<addedColumn name="sco_gender" type="INTEGER"/>
+				<addedColumn name="sco_birth_date" type="INTEGER"/>
+				<addedColumn name="sco_sin" type="INTEGER"/>
+				<addedColumn name="sco_email" type="INTEGER"/>
+				<addedColumn name="sco_card" type="INTEGER"/>
+				<addedColumn name="sco_instance" type="INTEGER"/>
+				<addedColumn name="uni_group_role" type="STRING"/>
+				<addedColumn name="std_currency_code" type="STRING"/>
+				<addedColumn name="std_currency_number" type="STRING"/>
+				<addedColumn name="std_currency_name" type="STRING"/>
+				<addedColumn name="exp_currency_code" type="STRING"/>
+				<addedColumn name="exp_currency_name" type="STRING"/>
+				<addedColumn name="exp_currency_number" type="STRING"/>
+				<addedColumn name="sco_currency_number" type="INTEGER"/>
+				<addedColumn name="sco_currency_name" type="INTEGER"/>
+				<addedColumn name="sco_currency_code" type="INTEGER"/>
+			</addedColumns>
+			<removedColumns/>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="120,288,-1,-1"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Add columns"/>
+		<target endpoint="in" step="Name"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Ataccama DQD) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" id="Ataccama DQD">
+		<properties>
+			<requiredColumns/>
+		</properties>
+		<visual-constraints layout="vertical" bounds="432,936,-1,-1"/>
+	</step>
+
+
+
+<!-- (Birth date) --><component mode="NORMAL" disabled="false" id="Birth date">
+		<properties fileName="x cleanse birth date.comp">
+			<mappings>
+				<mappingEndPoint name="in">
+					<columnMappings>
+						<columnsMapping from="src_birth_date" to="src_birth_date"/>
+					</columnMappings>
+				</mappingEndPoint>
+				<mappingEndPoint name="out">
+					<columnMappings>
+						<columnsMapping from="pat_birth_date_regex" to="pat_birth_date_regex"/>
+						<columnsMapping from="std_birth_date" to="std_birth_date"/>
+						<columnsMapping from="out_birth_date" to="out_birth_date"/>
+						<columnsMapping from="exp_birth_date" to="exp_birth_date"/>
+						<columnsMapping from="sco_birth_date" to="sco_birth_date"/>
+					</columnMappings>
+				</mappingEndPoint>
+			</mappings>
+			<parameters/>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="432,288,-1,-1"/>
+	</component>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Birth date"/>
+		<target endpoint="in" step="Sin"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="522,312"/>
+				<point location="522,372"/>
+				<point location="240,372"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Card) --><component mode="NORMAL" disabled="false" id="Card">
+		<properties fileName="x cleanse card.comp">
+			<mappings>
+				<mappingEndPoint name="in">
+					<columnMappings>
+						<columnsMapping from="src_card" to="src_card"/>
+					</columnMappings>
+				</mappingEndPoint>
+				<mappingEndPoint name="out">
+					<columnMappings>
+						<columnsMapping from="out_card" to="out_card"/>
+						<columnsMapping from="std_card" to="std_card"/>
+						<columnsMapping from="exp_card" to="exp_card"/>
+						<columnsMapping from="sco_card" to="sco_card"/>
+					</columnMappings>
+				</mappingEndPoint>
+			</mappings>
+			<parameters/>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="336,384,-1,-1"/>
+	</component>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Card"/>
+		<target endpoint="in" step="Email"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Currency) --><component mode="NORMAL" disabled="false" id="Currency">
+		<properties fileName="x cleanse currency.comp">
+			<mappings>
+				<mappingEndPoint name="in">
+					<columnMappings>
+						<columnsMapping from="src_currency_code" to="currency_code"/>
+						<columnsMapping from="src_curreny_number" to="currency_number"/>
+						<columnsMapping from="src_currency_name" to="currency_name"/>
+					</columnMappings>
+				</mappingEndPoint>
+				<mappingEndPoint name="out">
+					<columnMappings>
+						<columnsMapping from="std_currency_code" to="std_currency_code"/>
+						<columnsMapping from="std_currency_number" to="std_currency_number"/>
+						<columnsMapping from="std_currency_name" to="std_currency_name"/>
+						<columnsMapping from="exp_currency_code" to="exp_currency_code"/>
+						<columnsMapping from="exp_currency_name" to="exp_currency_name"/>
+						<columnsMapping from="exp_currency_number" to="exp_currency_number"/>
+						<columnsMapping from="sco_currency_number" to="sco_currency_number"/>
+						<columnsMapping from="sco_currency_name" to="sco_currency_name"/>
+						<columnsMapping from="sco_currency_code" to="sco_currency_code"/>
+					</columnMappings>
+				</mappingEndPoint>
+			</mappings>
+			<parameters/>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="552,384,-1,-1"/>
+	</component>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Currency"/>
+		<target endpoint="in" step="Score instance"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="612,407"/>
+				<point location="612,523"/>
+				<point location="240,523"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Data360) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" id="Data360">
+		<properties>
+			<requiredColumns/>
+		</properties>
+		<visual-constraints layout="vertical" bounds="264,936,-1,-1"/>
+	</step>
+
+
+
+<!-- (Email) --><component mode="NORMAL" disabled="false" id="Email">
+		<properties fileName="x cleanse email.comp">
+			<mappings>
+				<mappingEndPoint name="in">
+					<columnMappings>
+						<columnsMapping from="src_email" to="src_email"/>
+					</columnMappings>
+				</mappingEndPoint>
+				<mappingEndPoint name="out">
+					<columnMappings>
+						<columnsMapping to="std_email"/>
+						<columnsMapping from="out_email" to="out_email"/>
+						<columnsMapping from="exp_email" to="exp_email"/>
+						<columnsMapping from="sco_email" to="sco_email"/>
+					</columnMappings>
+				</mappingEndPoint>
+			</mappings>
+			<parameters/>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="432,384,-1,-1"/>
+	</component>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Email"/>
+		<target endpoint="in" step="Currency"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Extended Unification) --><step mode="NORMAL" className="com.ataccama.dqc.unify.ExtendedUnify" disabled="false" id="Extended Unification">
+		<properties directUpdate="false" mapAllColumns="false" minimumIdToAssign="1" readOnly="false" processingMode="NONINCREMENTAL" exclusiveMode="false">
+			<operations>
+				<iOperationConfig ruleNameColumn="uni_rule_name" defaultMaxIterations="100" id="Union" matchingIdColumn="uni_cli_id" class="com.ataccama.dqc.unify.config.UnifyOperation" candidateIdColumn="uni_can_id" unificationRoleColumn="uni_role" useCenterAsSurvivor="false" outputDiscardedIds="NONE">
+					<defaultCenterSelectionRule>
+						<orderBy expression="sco_instance " nullsFirst="false" orderDescending="false"/>
+						<orderBy expression="meta_last_update" nullsFirst="false" orderDescending="true"/>
+					</defaultCenterSelectionRule>
+					<defaultMatchingRules/>
+					<defaultMergeSurvivorSelectionRule/>
+					<groups>
+						<iGroupingMethod matchNearest="false" class="com.ataccama.dqc.tasks.identify.grouping.Union">
+							<centerSelectionRule/>
+							<keys>
+								<unionKey noKeyCond="matching_sin is null" noEmptyComponent="false">
+									<components>
+										<unionKeyComponent behaveAsSet="false" expression="matching_sin" separator=" "/>
+									</components>
+									<comm:comment>sin</comm:comment>
+								</unionKey>
+								<unionKey noKeyCond="matching_last_name is null or matching_card is null" noEmptyComponent="false">
+									<components>
+										<unionKeyComponent behaveAsSet="false" expression="matching_last_name" separator=" "/>
+										<unionKeyComponent behaveAsSet="false" expression="matching_card" separator=" "/>
+									</components>
+									<comm:comment>last_name + card  </comm:comment>
+								</unionKey>
+								<unionKey noKeyCond="matching_last_name is null or matching_email is null" noEmptyComponent="false">
+									<components>
+										<unionKeyComponent behaveAsSet="false" expression="matching_last_name" separator=" "/>
+										<unionKeyComponent behaveAsSet="false" expression="matching_email" separator=" "/>
+									</components>
+									<comm:comment>last_name + email</comm:comment>
+								</unionKey>
+								<unionKey noEmptyComponent="false">
+									<components>
+										<unionKeyComponent behaveAsSet="false" expression="matching_birth_date" separator=" "/>
+										<unionKeyComponent behaveAsSet="false" expression="matching_email" separator=" "/>
+										<unionKeyComponent behaveAsSet="false" expression="matching_card" separator=" "/>
+									</components>
+									<noKeyCond>matching_birth_date is null or
+matching_email is null or
+matching_card is null</noKeyCond>
+									<comm:comment>birth_date + email + card</comm:comment>
+								</unionKey>
+							</keys>
+							<matchingRules>
+								<matchingRule maximumAllowed="0.0" name="sin+last_name+first_name">
+									<expression>/* Same SIN and exact match of both names */
+measures.sameSin and measures.sameNames</expression>
+									<tests/>
+								</matchingRule>
+								<matchingRule maximumAllowed="0.0" name="sin+last_name+initial_first_name">
+									<expression>/* Same SIN and same Last Name */
+measures.sameSin and measures.sameLastName and
+/* Same initial letter of a First Name */
+measures.sameFirstNameInitial
+</expression>
+									<tests/>
+								</matchingRule>
+								<matchingRule maximumAllowed="0.0" name="sin+approx(full_name)">
+									<expression>/* Same SIN */
+measures.sameSin and
+/* Sum of Levenshtein distances of First and Last Name is 2 or less */
+measures.levFirstName+measures.levLastName&lt;=2</expression>
+									<tests/>
+								</matchingRule>
+								<matchingRule maximumAllowed="0.0" name="sin+initial_first_name [female]">
+									<expression>/* Female gender in both records */
+center.matching_gender is &#39;F&#39; and 
+slave.matching_gender is &#39;F&#39; and
+/* Same SIN */
+measures.sameSin and
+/* Same initial letter of the First Name */
+measures.sameFirstNameInitial</expression>
+									<tests/>
+								</matchingRule>
+								<matchingRule maximumAllowed="0.0" name="full_name+birth_date+card">
+									<expression>/* Exact match of both names */
+measures.sameNames and
+/* Same Birth date */
+measures.sameBirthDate and
+/* Same Card number */
+measures.sameCard</expression>
+									<tests/>
+								</matchingRule>
+								<matchingRule maximumAllowed="0.0" name="full_name+email+card">
+									<expression>/* Exact match of both names */
+measures.sameNames and
+/* Same Email */
+measures.sameEmail and
+/* Same Card number */
+measures.sameCard
+</expression>
+									<tests/>
+								</matchingRule>
+								<matchingRule maximumAllowed="0.0" name="full_name+birth_date+email">
+									<expression>/* Exact match of both names */
+measures.sameNames and
+/* Same Birth date */
+measures.sameBirthDate and
+/* Same Email */
+measures.sameEmail</expression>
+									<tests/>
+								</matchingRule>
+							</matchingRules>
+							<mergeSurvivorSelectionRule/>
+						</iGroupingMethod>
+					</groups>
+					<matchingMeasures>
+						<matchingMeasure name="levFirstName">
+							<expression>$cmfn:=center.matching_first_name;
+$smfn:=slave.matching_first_name;
+
+iif( $cmfn is null or $smfn is null, 1000,
+	 levenshtein($cmfn, $smfn)
+)</expression>
+							<comm:comment>Returns distance 1000 if any of compared first names is null, otherwise returns levenshtein distance of first names.</comm:comment>
+						</matchingMeasure>
+						<matchingMeasure name="levLastName">
+							<expression>$cmln:=center.matching_last_name;
+$smln:=slave.matching_last_name;
+
+iif ( $cmln is null or $smln is null, 1000,
+	levenshtein($cmln, $smln)
+)</expression>
+							<comm:comment>Returns distance 1000 if any of compared last names is null, otherwise returns levenshtein distance of last names.</comm:comment>
+						</matchingMeasure>
+						<matchingMeasure name="sameFirstName">
+							<expression>$cmfn:=center.matching_first_name;
+$smfn:=slave.matching_first_name;
+
+$cmfn=$smfn and $cmfn is not null</expression>
+							<comm:comment>Returns true if first names are exactly the same and not null.</comm:comment>
+						</matchingMeasure>
+						<matchingMeasure name="sameLastName">
+							<expression>$cmln:=center.matching_last_name;
+$smln:=slave.matching_last_name;
+
+$cmln=$smln and $cmln is not null</expression>
+							<comm:comment>Returns true if last names are exactly the same and not null.</comm:comment>
+						</matchingMeasure>
+						<matchingMeasure expression="measures.sameFirstName and measures.sameLastName" name="sameNames">
+							<comm:comment>Returns true if both first names and last names are the same and not null.</comm:comment>
+						</matchingMeasure>
+						<matchingMeasure name="sameSin">
+							<expression>center.matching_sin=slave.matching_sin
+and
+center.matching_sin is not null</expression>
+							<comm:comment>Returns true if both SIN numbers are the same and not null.</comm:comment>
+						</matchingMeasure>
+						<matchingMeasure name="sameBirthDate">
+							<expression>center.matching_birth_date=slave.matching_birth_date
+and
+center.matching_birth_date is not null</expression>
+							<comm:comment>Returns true if both birth dates are the same and not null.</comm:comment>
+						</matchingMeasure>
+						<matchingMeasure name="sameCard">
+							<expression>center.matching_card=slave.matching_card
+and
+center.matching_card is not null</expression>
+							<comm:comment>Returns true if both card numbers are the same and not null.</comm:comment>
+						</matchingMeasure>
+						<matchingMeasure name="sameEmail">
+							<expression>center.matching_email=slave.matching_email
+and
+center.matching_email is not null</expression>
+							<comm:comment>Returns true if both addresses are the same and not null.</comm:comment>
+						</matchingMeasure>
+						<matchingMeasure name="sameFirstNameInitial">
+							<expression>$cfninit:=left(center.matching_first_name,1);
+$sfninit:=left(slave.matching_first_name,1);
+
+$cfninit=$sfninit and $cfninit is not null</expression>
+							<comm:comment>Returns true when first letter of the first name is the same and not missing</comm:comment>
+						</matchingMeasure>
+					</matchingMeasures>
+				</iOperationConfig>
+				<iOperationConfig roleColumn="uni_group_role" id="Classification" class="com.ataccama.dqc.unify.config.SimpleGroupClassifyOperation" groupByColumn="uni_cli_id">
+					<columnSets>
+						<columnSet>
+							<columns>
+								<columnRef name="out_last_name"/>
+								<columnRef name="out_birth_date"/>
+								<columnRef name="out_sin"/>
+							</columns>
+							<fuzzyColumns/>
+							<importantColumns>
+								<columnRef name="out_sin"/>
+							</importantColumns>
+							<matchingRulesForARole>
+								<matchingRule maximumAllowed="0.0" name="same first_name+last_name+sin+birth_date">
+									<expression>pivot.out_first_name=other.out_first_name
+and
+pivot.out_last_name=other.out_last_name
+and
+pivot.out_sin=other.out_sin
+and
+pivot.out_birth_date=other.out_birth_date</expression>
+									<tests/>
+								</matchingRule>
+							</matchingRulesForARole>
+							<matchingRulesForMRole>
+								<matchingRule maximumAllowed="2.0" name="first_name">
+									<expression>pivot.out_first_name is not null
+and
+other.out_first_name is not null</expression>
+									<tests/>
+								</matchingRule>
+								<matchingRule maximumAllowed="2.0" name="last_name">
+									<expression>pivot.out_last_name is not null
+and
+other.out_last_name is not null</expression>
+									<tests/>
+								</matchingRule>
+								<matchingRule maximumAllowed="0.0" name="sin">
+									<expression>pivot.out_sin is not null
+and
+other.out_sin is not null</expression>
+									<tests>
+										<test expression="out_sin" resultForNullArguments="0.0" diaInsensitive="false" function="editDistance" caseInsensitive="true" weight="1.0" relative="false"/>
+									</tests>
+								</matchingRule>
+								<matchingRule maximumAllowed="0.0" name="birth_date">
+									<expression>pivot.out_birth_date is not null
+and 
+other.out_birth_date is not null</expression>
+									<tests/>
+								</matchingRule>
+							</matchingRulesForMRole>
+							<pivotSelectionRule>
+								<orderBy expression="sco_instance" nullsFirst="false" orderDescending="false"/>
+							</pivotSelectionRule>
+						</columnSet>
+					</columnSets>
+				</iOperationConfig>
+			</operations>
+			<outputStrategy exportUnchanged="true" exportDiscarded="false"/>
+			<repositoryColumns/>
+		</properties>
+		<visual-constraints layout="vertical" bounds="456,576,-1,-1"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Extended Unification"/>
+		<target endpoint="in" step="Merge"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="335,624"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Gender) --><component mode="NORMAL" disabled="false" id="Gender">
+		<properties fileName="x cleanse gender.comp">
+			<mappings>
+				<mappingEndPoint name="in">
+					<columnMappings>
+						<columnsMapping from="src_gender" to="src_gender"/>
+						<columnsMapping from="out_first_name" to="out_first_name"/>
+					</columnMappings>
+				</mappingEndPoint>
+				<mappingEndPoint name="out">
+					<columnMappings>
+						<columnsMapping from="std_gender" to="std_gender"/>
+						<columnsMapping from="out_gender" to="out_gender"/>
+						<columnsMapping from="exp_gender" to="exp_gender"/>
+						<columnsMapping from="sco_gender" to="sco_gender"/>
+					</columnMappings>
+				</mappingEndPoint>
+			</mappings>
+			<parameters/>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="336,288,-1,-1"/>
+	</component>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Gender"/>
+		<target endpoint="in" step="Birth date"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Instances) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" id="Instances">
+		<properties writeHeader="true" fileName="../data/out/09.01 Results-all_columns.csv" fieldSeparator=";" generateMetadata="true" stringQualifierEscape="&quot;" writeAllColumns="false" compression="NONE" encoding="UTF-8" lineSeparator="\r\n" stringQualifier="&quot;" useStringQualifierOnAllColumns="false">
+			<columns>
+				<textWriterColumn name="src_name"/>
+				<textWriterColumn name="src_gender"/>
+				<textWriterColumn name="src_birth_date"/>
+				<textWriterColumn name="src_sin"/>
+				<textWriterColumn name="src_card"/>
+				<textWriterColumn name="src_email"/>
+				<textWriterColumn name="src_primary_key"/>
+				<textWriterColumn name="src_currency_code"/>
+				<textWriterColumn name="src_curreny_number"/>
+				<textWriterColumn name="src_currency_name"/>
+				<textWriterColumn name="meta_last_update"/>
+				<textWriterColumn name="src_address"/>
+				<textWriterColumn name="address_validity_level"/>
+				<textWriterColumn name="sco_address"/>
+				<textWriterColumn name="exp_address"/>
+				<textWriterColumn name="address_status"/>
+				<textWriterColumn name="out_postal_code"/>
+				<textWriterColumn name="out_province_code"/>
+				<textWriterColumn name="out_municipality"/>
+				<textWriterColumn name="out_address_line_2"/>
+				<textWriterColumn name="out_address_line_1"/>
+				<textWriterColumn name="std_province_code"/>
+				<textWriterColumn name="std_postal_code"/>
+				<textWriterColumn name="std_municipality"/>
+				<textWriterColumn name="std_civic_number"/>
+				<textWriterColumn name="std_civic_number_suffix"/>
+				<textWriterColumn name="std_street_name"/>
+				<textWriterColumn name="std_street_type"/>
+				<textWriterColumn name="std_first_name"/>
+				<textWriterColumn name="std_middle_name"/>
+				<textWriterColumn name="std_last_name"/>
+				<textWriterColumn name="std_gender"/>
+				<textWriterColumn name="std_birth_date"/>
+				<textWriterColumn name="std_sin"/>
+				<textWriterColumn name="std_card"/>
+				<textWriterColumn name="std_email"/>
+				<textWriterColumn name="std_currency_code"/>
+				<textWriterColumn name="std_currency_number"/>
+				<textWriterColumn name="std_currency_name"/>
+				<textWriterColumn name="out_first_name"/>
+				<textWriterColumn name="out_middle_name"/>
+				<textWriterColumn name="out_last_name"/>
+				<textWriterColumn name="out_gender"/>
+				<textWriterColumn name="out_birth_date"/>
+				<textWriterColumn name="out_sin"/>
+				<textWriterColumn name="out_card"/>
+				<textWriterColumn name="out_email"/>
+				<textWriterColumn name="std_title"/>
+				<textWriterColumn name="pat_full_name"/>
+				<textWriterColumn name="pat_birth_date_regex"/>
+				<textWriterColumn name="matching_first_name"/>
+				<textWriterColumn name="matching_last_name"/>
+				<textWriterColumn name="matching_gender"/>
+				<textWriterColumn name="matching_birth_date"/>
+				<textWriterColumn name="matching_sin"/>
+				<textWriterColumn name="matching_card"/>
+				<textWriterColumn name="matching_email"/>
+				<textWriterColumn name="uni_can_id"/>
+				<textWriterColumn name="uni_cli_id"/>
+				<textWriterColumn name="uni_role"/>
+				<textWriterColumn name="uni_rule_name"/>
+				<textWriterColumn name="exp_name"/>
+				<textWriterColumn name="exp_gender"/>
+				<textWriterColumn name="exp_birth_date"/>
+				<textWriterColumn name="exp_sin"/>
+				<textWriterColumn name="exp_card"/>
+				<textWriterColumn name="exp_email"/>
+				<textWriterColumn name="exp_currency_code"/>
+				<textWriterColumn name="exp_currency_name"/>
+				<textWriterColumn name="exp_currency_number"/>
+				<textWriterColumn name="sco_name"/>
+				<textWriterColumn name="sco_gender"/>
+				<textWriterColumn name="sco_birth_date"/>
+				<textWriterColumn name="sco_sin"/>
+				<textWriterColumn name="sco_email"/>
+				<textWriterColumn name="sco_card"/>
+				<textWriterColumn name="sco_currency_number"/>
+				<textWriterColumn name="sco_currency_name"/>
+				<textWriterColumn name="sco_currency_code"/>
+				<textWriterColumn name="sco_instance"/>
+				<textWriterColumn name="uni_group_role"/>
+			</columns>
+			<dataFormatParameters falseValue="false" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd" trueValue="true" dateFormatLocale="en_US" thousandsSeparator=""/>
+		</properties>
+		<visual-constraints layout="vertical" bounds="96,936,-1,-1"/>
+	</step>
+
+
+
+<!-- (Merge) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.identify.bob.RepresentativeCreator" disabled="false" id="Merge">
+		<properties>
+			<groupingStrategy class="com.ataccama.dqc.tasks.common.group.KeyGroupingStrategy">
+				<groupBy>
+					<keyComponent expression="uni_cli_id"/>
+				</groupBy>
+			</groupingStrategy>
+			<rules>
+				<rule>
+					<attributeSets>
+						<attributeSetCfg>
+							<instanceAttributes/>
+							<representativeAttributes>
+								<attributeCfgRepr expression="out_first_name" name="out_first_name"/>
+								<attributeCfgRepr expression="out_last_name" name="out_last_name"/>
+							</representativeAttributes>
+							<selectionRules>
+								<aggregatingOrderBy expression="meta_last_update" nullsFirst="false" orderDescending="true"/>
+								<aggregatingOrderBy expression="sco_name" nullsFirst="false" orderDescending="false"/>
+								<aggregatingOrderBy expression="sco_instance" nullsFirst="false" orderDescending="false"/>
+							</selectionRules>
+							<comm:comment>Name</comm:comment>
+						</attributeSetCfg>
+						<attributeSetCfg>
+							<instanceAttributes/>
+							<representativeAttributes>
+								<attributeCfgRepr expression="out_gender" name="out_gender"/>
+							</representativeAttributes>
+							<selectionRules>
+								<aggregatingOrderBy expression="sco_gender" nullsFirst="false" orderDescending="false"/>
+							</selectionRules>
+							<comm:comment>Gender</comm:comment>
+						</attributeSetCfg>
+						<attributeSetCfg>
+							<instanceAttributes/>
+							<representativeAttributes>
+								<attributeCfgRepr expression="out_birth_date" name="out_birth_date"/>
+							</representativeAttributes>
+							<selectionRules>
+								<aggregatingOrderBy expression="sco_birth_date" nullsFirst="false" orderDescending="false"/>
+								<aggregatingOrderBy expression="sco_instance" nullsFirst="false" orderDescending="false"/>
+							</selectionRules>
+							<comm:comment>Birth date</comm:comment>
+						</attributeSetCfg>
+						<attributeSetCfg>
+							<instanceAttributes/>
+							<representativeAttributes>
+								<attributeCfgRepr expression="out_sin" name="out_sin"/>
+							</representativeAttributes>
+							<selectionRules>
+								<aggregatingOrderBy expression="sco_sin" nullsFirst="false" orderDescending="false"/>
+								<aggregatingOrderBy expression="sco_instance" nullsFirst="false" orderDescending="false"/>
+							</selectionRules>
+							<comm:comment>Sin</comm:comment>
+						</attributeSetCfg>
+						<attributeSetCfg>
+							<instanceAttributes/>
+							<representativeAttributes>
+								<attributeCfgRepr expression="out_card" name="out_card"/>
+							</representativeAttributes>
+							<selectionRules>
+								<aggregatingOrderBy expression="sco_card" nullsFirst="false" orderDescending="false"/>
+								<aggregatingOrderBy expression="sco_instance" nullsFirst="false" orderDescending="false"/>
+							</selectionRules>
+							<comm:comment>Card</comm:comment>
+						</attributeSetCfg>
+						<attributeSetCfg acceptanceCondition="out_email is not null">
+							<instanceAttributes/>
+							<representativeAttributes>
+								<attributeCfgRepr expression="out_email" name="out_email"/>
+							</representativeAttributes>
+							<selectionRules>
+								<aggregatingOrderBy expression="meta_last_update" nullsFirst="false" orderDescending="true"/>
+								<aggregatingOrderBy expression="sco_email" nullsFirst="false" orderDescending="false"/>
+								<aggregatingOrderBy expression="sco_instance" nullsFirst="false" orderDescending="false"/>
+							</selectionRules>
+							<comm:comment>Email</comm:comment>
+						</attributeSetCfg>
+						<attributeSetCfg>
+							<instanceAttributes/>
+							<representativeAttributes>
+								<attributeCfgRepr expression="first(meta_last_update)" name="meta_last_update"/>
+								<attributeCfgRepr expression="count()" name="meta_source_record_count"/>
+								<attributeCfgRepr expression="minimum(sco_instance)" name="meta_sco_min"/>
+								<attributeCfgRepr expression="maximum(sco_instance)" name="meta_sco_max"/>
+								<attributeCfgRepr expression="avg(sco_instance)" name="meta_sco_avg"/>
+								<attributeCfgRepr expression="modus(sco_instance)" name="meta_sco_mod"/>
+								<attributeCfgRepr expression="uni_cli_id" name="uni_cli_id"/>
+							</representativeAttributes>
+							<selectionRules>
+								<aggregatingOrderBy expression="meta_last_update" nullsFirst="false" orderDescending="true"/>
+							</selectionRules>
+							<comm:comment>Meta</comm:comment>
+						</attributeSetCfg>
+					</attributeSets>
+				</rule>
+			</rules>
+		</properties>
+		<visual-constraints layout="vertical" bounds="312,696,-1,-1"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Merge"/>
+		<target endpoint="in" step="Multiplicator"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="287,744"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out_merged" step="Merge"/>
+		<target endpoint="in" step="Representants"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="612,744"/>
+				<point location="612,936"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Multiplicator) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.flow.Multiplicator" disabled="false" id="Multiplicator">
+		<properties/>
+		<visual-constraints layout="vertical" bounds="264,816,-1,-1"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Multiplicator"/>
+		<target endpoint="in" step="Ataccama DQD"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="456,864"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Multiplicator"/>
+		<target endpoint="in" step="Data360"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="287,906"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Multiplicator"/>
+		<target endpoint="in" step="Instances"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="120,864"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Name) --><component mode="NORMAL" disabled="false" id="Name">
+		<properties fileName="x cleanse name.comp">
+			<mappings>
+				<mappingEndPoint name="in">
+					<columnMappings>
+						<columnsMapping from="src_name" to="src_name"/>
+					</columnMappings>
+				</mappingEndPoint>
+				<mappingEndPoint name="out">
+					<columnMappings>
+						<columnsMapping from="out_first_name" to="out_first_name"/>
+						<columnsMapping from="out_middle_name" to="out_middle_name"/>
+						<columnsMapping from="out_last_name" to="out_last_name"/>
+						<columnsMapping from="std_title" to="std_title"/>
+						<columnsMapping from="std_first_name" to="std_first_name"/>
+						<columnsMapping from="std_middle_name" to="std_middle_name"/>
+						<columnsMapping from="std_last_name" to="std_last_name"/>
+						<columnsMapping from="pat_full_name" to="pat_full_name"/>
+						<columnsMapping from="sco_name" to="sco_name"/>
+						<columnsMapping from="exp_name" to="exp_name"/>
+					</columnMappings>
+				</mappingEndPoint>
+			</mappings>
+			<parameters/>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="240,288,-1,-1"/>
+	</component>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Name"/>
+		<target endpoint="in" step="Gender"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Party Sample) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" id="Party Sample">
+		<properties lineMaxReadLength="65536" fileName="../project/for_marek/party_sample_with_address_verification.txt" fieldSeparator=";" stringQualifierEscape="&quot;" numberOfLinesInFooter="0" compression="NONE" encoding="UTF-8" lineSeparator="\r\n" stringQualifier="&quot;" numberOfLinesInHeader="1">
+			<columns>
+				<textReaderColumn name="src_name" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_gender" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_birth_date" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_sin" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_card" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_email" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_primary_key" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_currency_code" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_curreny_number" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_currency_name" ignore="false" type="STRING"/>
+				<textReaderColumn name="meta_last_update" ignore="false" type="STRING"/>
+				<textReaderColumn name="src_address" ignore="false" type="STRING"/>
+				<textReaderColumn name="address_validity_level" ignore="false" type="STRING"/>
+				<textReaderColumn name="sco_address" ignore="false" type="INTEGER">
+					<dataFormatParameters decimalSeparator="." thousandsSeparator=""/>
+				</textReaderColumn>
+				<textReaderColumn name="exp_address" ignore="false" type="STRING"/>
+				<textReaderColumn name="address_status" ignore="false" type="STRING"/>
+				<textReaderColumn name="out_postal_code" ignore="false" type="STRING"/>
+				<textReaderColumn name="out_province_code" ignore="false" type="STRING"/>
+				<textReaderColumn name="out_municipality" ignore="false" type="STRING"/>
+				<textReaderColumn name="out_address_line_2" ignore="false" type="STRING"/>
+				<textReaderColumn name="out_address_line_1" ignore="false" type="STRING"/>
+				<textReaderColumn name="std_province_code" ignore="false" type="STRING"/>
+				<textReaderColumn name="std_postal_code" ignore="false" type="STRING"/>
+				<textReaderColumn name="std_municipality" ignore="false" type="STRING"/>
+				<textReaderColumn name="std_civic_number" ignore="false" type="STRING"/>
+				<textReaderColumn name="std_civic_number_suffix" ignore="false" type="STRING"/>
+				<textReaderColumn name="std_street_name" ignore="false" type="STRING"/>
+				<textReaderColumn name="std_street_type" ignore="false" type="STRING"/>
+			</columns>
+			<dataFormatParameters falseValue="false" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd" trueValue="true" dateFormatLocale="en_US" thousandsSeparator=""/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction dataStrategy="READ_POSSIBLE" errorType="EXTRA_DATA" putToLog="true" putToReject="false"/>
+					<errorInstruction dataStrategy="STOP" errorType="LONG_LINE" putToLog="true" putToReject="true"/>
+					<errorInstruction dataStrategy="STOP" errorType="PROCESSING_ERROR" putToLog="true" putToReject="false"/>
+					<errorInstruction dataStrategy="READ_POSSIBLE" errorType="INVALID_DATE" putToLog="true" putToReject="false"/>
+					<errorInstruction dataStrategy="READ_POSSIBLE" errorType="SHORT_LINE" putToLog="true" putToReject="true"/>
+					<errorInstruction dataStrategy="NULL_VALUE" errorType="UNPARSABLE_FIELD" putToLog="true" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="48,288,-1,-1"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Party Sample"/>
+		<target endpoint="in" step="Add columns"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Prepare matching values) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" id="Prepare matching values">
+		<properties>
+			<assignments>
+				<assignment expression="upper(out_first_name)" column="matching_first_name">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry explain="false" score="0" explainAs="CA_CHANGED" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="upper(out_last_name)" column="matching_last_name">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry explain="false" score="0" explainAs="CA_CHANGED" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="out_gender" column="matching_gender">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry explain="false" score="0" explainAs="CA_CHANGED" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="iif(sco_birth_date &lt; 10000,out_birth_date,null)" column="matching_birth_date">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry explain="false" score="0" explainAs="CA_CHANGED" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="iif(sco_sin &lt; 10000, out_sin,null)" column="matching_sin">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry explain="false" score="0" explainAs="CA_CHANGED" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="iif(sco_card &lt; 10000, out_card,null)" column="matching_card">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry explain="false" score="0" explainAs="CA_CHANGED" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="iif(sco_email &lt; 10000, out_email,null)" column="matching_email">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry explain="false" score="0" explainAs="CA_CHANGED" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="360,528,-1,-1"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Prepare matching values"/>
+		<target endpoint="in" step="Extended Unification"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="479,552"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Representants) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" id="Representants">
+		<properties writeHeader="true" fileName="../data/out/09.01 Results-merge.csv" fieldSeparator=";" generateMetadata="true" stringQualifierEscape="&quot;" writeAllColumns="true" compression="NONE" encoding="UTF-8" lineSeparator="\r\n" stringQualifier="&quot;" useStringQualifierOnAllColumns="false">
+			<columns/>
+			<dataFormatParameters falseValue="false" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd" trueValue="true" dateFormatLocale="en_US" thousandsSeparator=""/>
+		</properties>
+		<visual-constraints layout="vertical" bounds="600,936,-1,-1"/>
+	</step>
+
+
+
+<!-- (Score instance) --><step mode="NORMAL" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" id="Score instance">
+		<properties>
+			<assignments>
+				<assignment column="sco_instance">
+					<expression>nvl(sco_name, 0) +
+nvl(sco_gender, 0) +
+nvl(sco_birth_date, 0) +
+nvl(sco_sin, 0) +
+nvl(sco_email, 0) +
+nvl(sco_card, 0) +
+nvl(sco_currency_code, 0) +
+nvl(sco_currency_name, 0)+
+nvl(sco_currency_number, 0)</expression>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry explain="false" score="0" explainAs="CA_CHANGED" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="240,528,-1,-1"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Score instance"/>
+		<target endpoint="in" step="Prepare matching values"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Sin) --><component mode="NORMAL" disabled="false" id="Sin">
+		<properties fileName="x cleanse sin.comp">
+			<mappings>
+				<mappingEndPoint name="in">
+					<columnMappings>
+						<columnsMapping from="src_sin" to="src_sin"/>
+					</columnMappings>
+				</mappingEndPoint>
+				<mappingEndPoint name="out">
+					<columnMappings>
+						<columnsMapping from="std_sin" to="std_sin"/>
+						<columnsMapping from="out_sin" to="out_sin"/>
+						<columnsMapping from="exp_sin" to="exp_sin"/>
+						<columnsMapping from="sco_sin" to="sco_sin"/>
+					</columnMappings>
+				</mappingEndPoint>
+			</mappings>
+			<parameters/>
+		</properties>
+		<visual-constraints layout="horizontal" bounds="240,384,-1,-1"/>
+	</component>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source endpoint="out" step="Sin"/>
+		<target endpoint="in" step="Card"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment backgroundColor="128,255,128" borderColor="255,255,255" bounds="24,24,601,49" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to demonstrate the match and merge process.</modelComment>
+
+
+
+<modelComment backgroundColor="219,219,219" borderColor="255,255,255" bounds="48,96,577,166" foregroundColor="64,0,64">The match and merge process requires cleansing the data first. For cleansing we
+use custom Components (purple icons) for each attribute. 
+To open a Component double-click the icon while holding the Ctrl key.
+
+After you run this plan, a set of files will appear in the folder. 
+The files show the results of:       
+                    1. cleansing
+                    2. matching and group classification
+                    3. merging</modelComment>
+
+
+
+<modelComment backgroundColor="219,219,219" borderColor="255,255,255" bounds="192,264,433,217" foregroundColor="64,0,64">1.</modelComment>
+
+
+
+<modelComment backgroundColor="219,219,219" borderColor="255,255,255" bounds="192,504,433,145" foregroundColor="64,0,64">2.</modelComment>
+
+
+
+<modelComment backgroundColor="219,219,219" borderColor="255,255,255" bounds="192,672,433,97" foregroundColor="64,0,64">3.</modelComment>
+
+
+
+<modelComment backgroundColor="219,219,219" borderColor="255,255,255" bounds="72,912,745,97" foregroundColor="64,0,64"></modelComment>
+
+</purity-config>
